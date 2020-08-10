@@ -1,0 +1,84 @@
+
+DROP PROCEDURE IF EXISTS insert_records;
+
+DELIMITER $$
+
+CREATE PROCEDURE insert_records 
+(
+  pId INT ,
+  bName VARCHAR(50),
+  aName VARCHAR(50),
+  sName VARCHAR(50),
+  price FLOAT
+)
+
+BEGIN 
+
+  INSERT INTO BOOKS VALUES(pId ,bName , aName , sName , price);
+
+END ;
+$$
+
+DELIMITER ;
+
+
+
+
+
+DROP PROCEDURE IF EXISTS display_records;
+
+DELIMITER $$
+
+CREATE PROCEDURE display_records 
+( )
+
+BEGIN 
+
+  SELECT * FROM BOOKS; 
+
+END ;
+$$
+
+DELIMITER ;
+
+
+
+
+
+DROP PROCEDURE IF EXISTS update_records;
+
+DELIMITER $$
+
+CREATE PROCEDURE update_records 
+(
+  pId INT ,
+  price FLOAT )
+
+BEGIN 
+
+  UPDATE BOOKS SET PRICE=price WHERE ID=pId;
+
+END ;
+$$
+
+DELIMITER ;
+
+
+
+
+DROP PROCEDURE IF EXISTS delete_records;
+
+DELIMITER $$
+
+CREATE PROCEDURE delete_records 
+(
+  pId INT  )
+
+BEGIN 
+
+  DELETE FROM BOOKS WHERE ID=pId;
+
+END ;
+$$
+
+DELIMITER ;
