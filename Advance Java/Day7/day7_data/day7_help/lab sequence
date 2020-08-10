@@ -1,0 +1,43 @@
+Lab sequence
+
+1. Import day7.1 to revise CRUD operations.
+(solve all testers)
+
+Solve assignemnt (required for the case study)
+1. Vendor POJO
+Data members -- id(Integer),name,email,password,role(Enum UserRole
+--VENDOR,ADMIN),reg amount(double), reg date(Date)
+Add suitable annotations
+
+Add <mapping class="pojos.Vendor"/>
+
+Run TestHibernate
+
+2. IVendorDao --DAO i/f
+
+2.1 Register new vendor
+String registerVendor(Vendor v);
+2.1 Display all vendor details
+ List<Vendor> listVendors();
+2.2 Get Vendor details by ID
+Vendor getDetails(int id);
+2.2 Vendor Login
+Vendor validateUser(String email,String pass)
+2.3 List all vendors registered after specific date.
+List<Vendor> listVendors(Date d);
+2.4 Change password
+I/p  email,old password,new password
+O/P message -- success / failed(invalid login)
+String updateVendor(String email,String oldPass,String newPass)
+2.5 Un subscribe vendor
+i/p vendor email
+O/P message
+String deleteVendorDetails(String email)
+
+2.6 Display all vendor names , with specified role
+List<String> getVendorNames(Role role)
+
+
+3. VendorDaoImpl --DAO implementation class
+4. Testers
+

@@ -1,0 +1,137 @@
+Today's Topics
+Deeper look at hibernate architecture
+CRUD API of Hibernate Session
+L1 cache working 
+Hibernate POJO/Entity life cycle.
+
+
+Revise
+What is Hibernate ?
+Complete soln to managing persistence
+ORM tool
+JPA implementor
+JPA --J2EE specs
+Imple --persistence provider frmworks --hibernate,Kodo,EclipseLink,JDO,iBatis...
+Auto persistence / transperent --indepenedent of persistence frmwork
+open source java frmwork. --Gavin King --2001
+Why ?
+open source
+fatser performance ---caching
+L1 cache -- session level -- implicitely enabled
+L2 cache --SF level --explicitely 
+Query level
+complete DB inde --- JPQL/HQL obj oreiented ver of sql
+Hib uses DB dialect for translating db inde JPQL into DB specific sql
+connection pooling
+supports OOP features --- inheritance, poly, asso...
+lazy loading feature
+chked sql exc --->un chked hib exc --
+....
+
+
+Hibernate Based DAO Layer
+i/f 
+String registerCustomer(Customer c);//c -- transient POJO
+//transient --not yet persistent
+
+DAO Imple. class
+1. No D.M , no constr  , no cleanup
+2. CRUD method
+2.1 Get session from SF
+API of org.hibernate.SessionFactory
+public Session openSession() throws HibernateException
+
+2.2 Begin a transaction
+org.hibernate.Session API
+public Transaction beginTransaction() throws HibernateException
+
+2.3 try {
+  perform CRUD operation
+  commit tx. 
+  } catch (RuntimeExcpetion e)
+  {
+    rollback tx.
+    re throw the exc to the caller (throw e)
+  } finally 
+  {
+    close session;
+  }
+
+Session API
+1. CRUD logic (save method)
+public Serializable save(Object o) throws HibernateException
+I/P -- transient POJO ref
+O/P -- Serializable ID associated with persistent POJO.
+  
+
+SDF API
+1. SDF(String pattern)
+2. string--->Date (java.util.Date)
+public Date parse(String s) throws ParseException
+3. Date--->string
+public String format(Date d)
+
+string -->  enum
+
+1. valueOf --rets Enum
+2. values --rets Enum[]
+
+
+Objective 
+List all customers
+List all customers registered between strt & end date & reg amount > amt
+sql="select * from customers where reg_date between ? and ? and reg_amt > ?"
+jpql="select c from Customer c where c.regDate between :strt and :end and c.regAmount > :amt";
+
+Update Customer's reg amount n password
+i/p customer id , offset in reg amt , new pwd
+o/p rets mesg --success/failure.
+get
+
+Objective  : Offer discount to all customers reged before specific date.
+i/p -- date , discount amt
+o/p list of customers getting discount
+
+Bulk update scenario
+String jpql="update Customer c set c.regAmount=c.regAmount-:disc where c.regDate < :dt";
+
+Set IN param.
+
+API of Query<R> i/f
+public int executeUpdate() throws HibernateException
+Rets -- updated row count.
+
+Objective 
+Delete customer details
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Architecture
