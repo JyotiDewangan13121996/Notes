@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>example</short-name>
+  <uri>my-uri</uri>
+  <tag>
+    <name>logout</name>
+    <tag-class>cust_tags.LogoutHandler</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+<!--  <tag>
+    <name>changeCase</name>
+    <tag-class>tags.ChangeCaseHandler</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>text</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>text_case</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>BodyHandler</name>
+    <tag-class>tags.BodyHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>count</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>-->
+</taglib>

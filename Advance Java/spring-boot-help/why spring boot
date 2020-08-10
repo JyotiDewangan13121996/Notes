@@ -1,0 +1,36 @@
+Spring Boot 
+Why Spring Boot ?
+
+Spring projects require quite a bit of configuration. Some of this configuration is boilerplate code related to persistence , file upload etc . It has nothing to do with business requirements. Spring Boot is a technology that will set up  configuration automatically, helping you get your project(industry grade application) up and running as quickly as possible.
+
+Spring Boot = Production ready spring project + embedded web server - (configuration files & dependency JARs)
+
+Benefits
+
+1. Automatic configuration of an application uses intelligent defaults based on the classpath. 
+2. When creating a Spring Boot Starter project, you select the features(eg : spring data JPA, Web,SQL...) that your application needs and Spring Boot will manage the dependencies for you.(w/o developer explicitely compiling pom.xml)
+3. A Spring Boot application can be packaged as a JAR file. The application can be run as a standalone Java application(with embedded tomcat server)
+
+4. When developing a web application, Spring Boot configures an embedded Tomcat server so that it can be run as a standalone application. 
+ You can package the application as a WAR file and deploy it to an external servlet container too.
+
+Steps 
+1. Create spring boot application for REST Controller
+1.5 Copy application.properties file
+Write a simple TestController & test spring boot application.
+
+@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
+
+@Configuration --alternative to spring bean config xml 
+@EnableAutoConfiguration --enables auto config support
+@ComponentScan --alternative to <context:component-scan base-package="com.app"/>
+
+
+2. Copy EmpController from earlier REST project , & test it from Spring Boot
+(replace Session by javax.persistence.EntityManager)
+Refer to --jpa-entitymgr-session diagram
+
+OR
+
+3. Enter Spring Data JPA + Spring Boot
+
