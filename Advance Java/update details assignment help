@@ -1,0 +1,41 @@
+AdminController
+@Getmapping("/upadate")
+public String showUpdateForm(Model map,@RequestParam int vid)
+{
+   syso("in show update form");
+//POJO ---> form
+    map.addAttribute("user",dao.getDetails(id));
+   return "/admin/update";
+}
+
+2. Form --update 
+
+
+3.@PostMapping("/update")
+public String processUpdateForm(User u,RedirectAttributes flashMap)
+{
+//formdata -->POJO
+ sop("...."+u);//u --- DETACHED pojo with updated state
+// dao'update method
+  flashMap.addFlashAttribute("mesg",dao.updateDetails(u));
+ return "redirect:/admin/list";
+}
+---------------------
+
+IVendorDao 
+User getDetails(int vid);
+String updateDetails(User u);
+
+
+VendorDaoImpl 
+
+return sf.getCurrentSession().get(....);
+
+
+sf.getCurrentSession().update(u);
+return "Updated details of Vendor ID "+u.getId()+ "...");
+
+
+..../admin/update method=post
+
+
