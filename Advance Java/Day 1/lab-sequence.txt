@@ -1,0 +1,35 @@
+Lab sequence
+
+0. Extract J2EE API docs , open index.html in a browser.
+1. Launch IDE ,create new workspace.
+2. Change  perspective --- Java EE
+(win--perspective--open perspective -- Java EE)
+3. Extract Tomcat server & add it the IDE
+servers -- add (link) --apache --tomcat 8.5 --tomcat install dir  --JRE settings --Location -- JDK 1.8 --- finish
+4. Create dyn web application
+dyn web project --- name (confirm target runtime -- Apache tomcat 8.5) --select web.xml ---finish
+5 Open web.xml --- (WebContent/WEB-INF/web.xml)
+Keep 1 welcome file -- index.html
+6. R click on WebContent  -- new --- HTML
+index.html --Add welcome mesg.
+7. Initially test it on localhost.
+Change to external browser (window ---browser ---Firefox/chrome...)
+8. R click on web app(eg : day1.1) --- run as --run on server ---Should show you --- welcome page.
+
+9. Disable firewall on server host.
+& test it from SEPARATE clnt machine
+eg : URL --http://server_ip:7070/day1.1
+
+10 Create & deploy servlet from IDE
+ R click --src --new --servlet --pkg & name of cls ---edit URL mapping(url pattern) --/hi ---init, doGet,destroy
+Deploy it with @WebServlet annotation.
+
+11. Create another servlet & deploy it with XML tags.
+
+12.Copy input.html under WebContent & write a servlet to test all i/p parameters.
+
+13. Solve assignment
+
+
+
+

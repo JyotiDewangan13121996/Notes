@@ -1,0 +1,213 @@
+Version Java EE 7 (J2EE 1.7)
+
+What is J2EE ?
+
+Consists of specifications only .
+
+Which specs ? (Rules or contract )
+Specifications of services required for any enterprise application.
+
+What is enterprise application ?
+
+An enterprise application (EA) is a large software system platform designed to operate in a corporate environment .
+
+It includes online shopping and payment processing, interactive product catalogs, computerized billing systems, security, content management, IT service management,  business intelligence, human resource management, manufacturing, process automation, enterprise resource planning ....
+
+These specifications include ---
+
+Servlet API,JSP(Java server page) API,Security,Connection pooling ,EJB (Enterprise Java Bean), JNDI(Naming service -- Java naming & directory i/f),JPA(java persistence API),JMS(java messaging service),Java Mail, Java Server Faces , Java Transaction API, Webservices support etc...
+
+Vendor of J2EE specs -- Oracle / Sun.
+
+Implementation -- left to vendors (J2EE server vendors)
+J2EE compliant web server --- Apache -- Tomcat (web container)
+Services implemented --- servlet API,JSP API,Security,Connection pooling,JNDI(naming service)
+
+J2EE complaint application server --- web container + EJB (enterprise java bean) container
++ ALL J2EE services implementation
+
+
+J2EE server Vendors & Products
+Apache -- tomcat(web server) / Tomee (app server)
+Oracle / Sun --- ref imple. --- Glassfish
+Red Hat -- JBoss (wild fly)
+Oracle / BEA -- weblogic
+IBM -- Websphere
+
+
+WHY J2EE
+1. Can support different types of clnts --- thin client(web clnt)
+thick clnt --- application clnt
+smart clnts -- mobile clnts
+
+2. J2EE offers server independence --- Create & deploy server side appln --on ANY J2ee compliant server --- guaranteed to produce SAME results w/o touching or re-deploying on ANY other J2EE server
+
+3. Ready made implementation of primary services(eg --- security, conn,pooling,email....)--- so that J2EE developer DOESn't have to worry about primary services ---rather can concentrate on actual business logic.
+-----------------------
+
+Layers involved in HTTP request-response flow
+
+Web browser sends the request (URL)
+ eg : http://www.abc.com:8080/day1.1/index.html 
+/day1.1  --- root / context path /web app name
+
+Host --Web server--Web Container(server side JVM)--Web application---HTML/JSP/Servlet....
+
+
+What is dyn web application --- server side appln --deployed on web server --- meant for servicing typically web clnts(thin) -- using application layer protocol  HTTP /HTTPS
+(ref : diag request-resp flow)
+
+Read --HTTP basics , request & response structure.
+
+Objective ?: Creating & deploying dyn web appln on Tomcat -- For HTML content
+
+IDE auto creates J2EE compliant web application folder structure .
+Its details -- Refer to diag (J2EE compliant web app folder structure)
+
+
+What is Web container --- (WC) & its jobs
+1. Server side JVM residing within web server.
+Its run-time env for dyn web components(Servlet & JSP,Filter) . 
+Jobs ---
+1. Creating Http Request & Http response objects 
+2. Controlling life-cycle of dyn web comps (manages life cycle of servlet,JSP,Filters)
+3. Giving ready-made support for services --- Naming,security,Conn pooling .
+4. Handling concurrent request from multiple clients .
+5. Managing session tracking..i.
+
+
+What is web.xml --- Deployment descriptor one per web appln
+created by -- dev
+who reads it -- WC
+when --- @ deployment 
+what --- dep instrs --- welcome page, servlet deployment tags, sess config, sec config......
+
+--------------------------
+Why servlets? --- To add dynamic nature to the web application
+
+What is a servlet ?
+-- Java class -- represents dynamic web component - whose life cycle will be managed by WC(web container)
+no main method
+life cycle methods --- init,service,destroy
+
+
+Job list
+1. Request processing
+2. B.L 
+3. response generation
+4. Data access logic(DAO class --managing DAO layer)
+5. Page navigation
+
+Servlet API details --refer to diag servlet-api
+------------------------
+
+Creating & deploying Hello Servlet. 
+1. Using @WebServlet annotation
+OR
+2. Using XML tags
+How to deploy a servlet w/o annotations --- via XML tags in web.xml
+<servlet>
+ <servlet-name>abc</servlet-name>
+ <servlet-class>pages.TestServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+ <servlet-name>abc</servlet-name>
+ <url-pattern>/test123</url-pattern>
+</servlet-mapping>
+
+eg URL --http://host:port/day1.1/test123
+
+
+At the time of web app deployment ---WC tries to populate map of url patterns , from XML tags (from web.xml). If not found --- will check for @WebServlet annotation(via reflection)
+
+
+Can one servlet be deployed under multiple url-patterns ?
+YES
+Can multiple servlets have same  url-pattern?
+NO( web app will not be deployed)
+
+
+
+-------------------------------
+How to read request parameters in Servlet ?
+javax.servlet.ServletRequest i/f methods
+1. public String getParameter(String paramName)
+
+2. public String[] getParameterValues(String paramName)
+
+Servlet JDBC integration
+Layers
+Servlet---DAO (DBUtils) --POJO ---DB
+1. Copy JDBC driver JAR under either WEB-INF/lib or <tomcat>/lib
+2. Build layers in bottoms up manner.
+
+3. POJO -- User 
+
+4. DAO 
+4.1 i/f 
+eg : IUserDao
+User authenticateUser(String em,String pass) throws Exc.
+
+4.2 UserDaoImpl
+1. D.M -- cn,pst1
+2. constr -- get cn from DBUtils
+prepare PST
+3. cleanUp 
+close PST , cn
+4. CRUD  
+public User authenticateUser(String em,String pass) throws Exc.
+{
+  1. set IN params --em,pass
+  2. execQuery --RST --processing
+  3. Ret result to Servlet --- in form of POJO
+  (null --invalif login or not null)
+}
+
+5. LoginServlet
+init --- dao's constr
+destroy --- dao's cleanUp
+doGet 
+1.set cont type & get PW
+2. read request params
+3. invoke dao's CRUD method --
+null -- retry link with err mesg
+not null -- success mesg , print user dtls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Page Navigation Techniques
+
+
+
+
+
+
+
+
+
+
+-------------------------------
