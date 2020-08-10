@@ -1,0 +1,63 @@
+Internationalization -- i18n -- Technique for developing applications that support multiple languages, data formats  , currency formats , date formats etc without having to re-write view generation logic.
+
+Localization --- l10n --- technique for adapting an internationalized appln to support a specific locale.
+Locale = specific geographical,political or cultural region.
+
+
+
+Steps for i18n
+1. Identify the locales
+
+2. Create text-based property file -- one per each locale. ---store it under <src> or <resources>
+-----------------
+For making your application support different locales, we need to create locale specific properties file. The file names follow the pattern of bundle name with language code and country code, for example ApplicationMessages_en_US.properties.
+
+Once the property files for specific locales are ready, all you need to do is initialize the resource bundle with correct Locale. 
+API
+Java provides two classes java.util.ResourceBundle and java.util.Locale that are used for this purpose. 
+ResourceBundle reads the locale specific property file and you can get the locale specific value for any key.
+
+Use case 
+
+This is very helpful in making your web application texts locale specific, you can get the locale information from the HTTP request and generate the dynamic page with that locale resource bundle files. You can also provide option to user to chose the locale and update the labels dynamically.
+
+Spring MVC i18n steps (ref : eclipse project : spring_demo)
+ 
+1.. Add locale resolver bean definition in spring-servlet.xml file.
+
+SessionLocaleResolver
+
+SessionLocaleResolver resolves locales by inspecting a predefined attribute in a user’s session. If the session attribute doesn’t exist, this locale resolver determines the default locale from the accept-language HTTP header.
+
+<bean id="localeResolver" 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+2. Add mvc interceptors for detecting change in locale, in spring-servlet.xml
+ 
+LocaleChangeInterceptor interceptor detects if a special parameter is present in the current HTTP request. The parameter name can be customized with the paramName property of this interceptor. If such a parameter is present in the current request, this interceptor changes the user’s locale according to the parameter value.
+
+
+<mvc:interceptors>
+<!-- Locale change interceptor -->
+<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+p:paramName="locale123" />
+</mvc:interceptors>
+
+Above 2 can be either declared in spring-servlet.xml or also in imported xml file.
+
+
+3.  Create copies of message based property files 
+
+4.  Create JSP with links to add support for various locales -- using same param name
+<spring:url var="url" value="test_locale">
+<spring:param name="locale123">en</spring:param>
+</spring:url>
+<a href="${url}">English</a>
+
+<spring:url var="url" value="test_locale">
+<spring:param name="locale123">mr_IN</spring:param>
+</spring:url>
+<a href="${url}">Marathi</a>
+
+5. Use <spring:message code="propName"/>
+eg : <spring:message code="user.email" />
+
