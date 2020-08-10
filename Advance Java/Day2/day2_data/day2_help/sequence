@@ -1,0 +1,144 @@
+Have you tried -  lab sequence ?
+
+Assignment status ?????????
+
+Today's topics
+page navigation
+session tracking
+
+WAR-- web app archive
+
+Revise
+
+Why J2EE & what is it ?
+
+Request response flow
+URL --- http://www.abc.com:8080/day2_web/
+
+WC ---server side JVM --runtime env for dyn web comps.
+(servlet/JSP/filter)
+
+web.xml -- D.D for web app
+who - WC
+when --- @ dep time
+what it contents -- Dep instrs meant for WC
+
+
+J2EE compliant web app folder structure
+
+What is a Servlet & its jobs 
+rq processing, resp gen,B.L, page nav , managing DAO
+
+Revise Servlet API
+
+How do you create n deploy a servlet ?
+doXXX
+1. set resp cont
+rs.setContentType("text/html");
+2. Open PW --- char , buf , o/p strm connected from server ---> clnt to send resp.
+
+
+How to send bin conts to clnt 
+1. set cont type suitably
+2. ServletOutputStream out=rs.getOutputStream();
+
+
+1. What will happen if u don't add / in url pattern ?  --error(web app doesn't get deployed --- invalid url pattern (IllegalArgumentException))
+
+
+ 
+2. What will happen --if u add "/url-pattern" in form action or href ? --- HTTP 404 (uses absolute url eg : http://host:port/hi)
+
+3. Can 1 servlet be deployed using multiple url-patterns? --YES
+
+4 Can 2 servlets be deployed having same url-pattern? --NO --- web app does't get deployed. 
+5. Can 2 web-apps have same ctx path ? -- NO 
+6. What will happen if servlet class is not public ? --
+--ClassNotFoundException
+7. What will happen if u supply only a  parameterized constr to the servlet ? --- 
+WC won't be able to inst a servlet --- InstantiationExc.
+
+8. Why a servlet should not override service method ?
+--HttpServlet has alrdy overridden the service method to dispatch clnt request ---doXXX
+
+Servlet Life cycle seen so far ?????
+
+What's the trigger for WC to start the life cycle of a servlet ?
+clnt sending 1st request.
+
+Any other trigger ?
+
+load-on-startup
+@WebServlet annotation 
+load-on startup --def value =-1
+eg : @WebServlet(value={"/hi","/hello"},loadOnStartup=1)
+public class Servlet1 extends H.S {...}
+Meaning -- WC starts the life cycle of the servlet @ web app deployment time.
+
+
+@WebServlet("/test")
+public class Servlet2 extends H.S {...}
+use case of loadOnStartup
+--in case of time consuming init methods(eg : DAO inst or  DispatcherServlet of Spring MVC)
+
+
+How to read request params sent from the clnt ?
+
+
+Servlet--JDBC integration
+
+
+
+Layers involved 
+Servlet --DAO(DBUtils) -- POJO -- DB
+Complete login--logout flow
+
+Centralized error handling approach in servlets
+1. Delegate exceptions from the below layers to servlet.
+2. If servlet's init method throws Exception(typically ServletException) , SC won't continue with the remaining life cycle(aborts the life cycle)
+eg : In init method
+try {
+....
+} catch(Exception e)
+{
+ throw new ServletException(errMesg,rootCause);
+}
+
+
+
+
+
+What will happen if u explicitely flush/close PrintWriter & then invoke sendRedirect ?
+WC throws ---java.lang.IllegalStateException --
+reason --Can't redirect the clnt (i.e empty the buffer's contents) after committing the response.
+
+eg : s1 --servlet1 
+doPost 
+pw.print("hello");
+pw.flush()/ pw.close()
+response.sendRedirect("s2");
+WC --- sends immediate temp redirec resp.
+resp pkt 
+SC -- 302
+Header --- location , value=http://host:port/day2/s2
+body EMPTY
+Browser ---generate NEW request 
+method=get 
+URL ---http://host:port/day2/s2
+1. LoginServlet 
+user dao & book dao --init/ destroy
+doGet --
+hs.setAttribute("user_dao",dao1);
+hs.setAttribute("bk_dao",dao2);
+
+
+2. CategoryServlet 
+no init, destroy
+doGet -- HS
+get book DAO instance--- from session scope
+get catgeory list
+List<String> categories=dao.get....;
+pw.print("<form...>);
+
+
+

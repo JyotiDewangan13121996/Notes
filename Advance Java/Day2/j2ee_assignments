@@ -1,0 +1,35 @@
+Day 1
+1. Solve voting assignment.(mandatory) --Voter login only
+refer to case study diagram.
+
+Assignement help
+1. Tables --
+1.1 voters(id(int) PK, name(varchar), email unique , password , status(boolean/varchar),role(varchar--voter or admin)
+1.2 candidates -- id (int) PK , name , political party , votes
+
+2. Create POJOs
+Voter & Candidate
+
+3. Create VoterDao  -- i/f & implementation classes.
+IVoterDao i/f
+methods
+3.1 Voter authenticateVoter(String em,String pass) throws Exception
+
+4. Copy login form & create VoterLoginServlet for voter authentication.
+
+
+Day 2
+Continue with voting assignment.
+(It has to be completed with HttpSession API , for session tracking)
+
+1. Create ICandidateDao i/f
+List<Candidate> getAllCandidates();
+2. Create its implementations class.
+
+3. Modify VoterLoginServlet , to check role, check voting status. 
+If the role is voter & already voted --redirect clnt to StatusServlet.
+If the role is voter & not yet  voted --redirect clnt to CandidateListPage .
+If the role is admin , redirect the client to AdminPage
+
+
+
