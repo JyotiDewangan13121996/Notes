@@ -1,0 +1,129 @@
+Today's Topics
+JSP Actions
+JSP using Java Bean
+JSTL
+same book shop case study with JSP--JB--DAO (DBUtils)--POJO--DB Layers.
+
+
+Revise
+
+Why JSP
+What is it ?
+JSP life cycle
+JSP API
+JSP Tags
+Comments
+<%-- --%>
+<!--abc -->
+JSP implicit objects --accessible to scriptlets n expressions
+request,response,out,session,config,application,
+page,pageContext,exception
+Scripting elements
+scriptlets -- AVOID  --why 
+Mix up between P.L n B.L
+<% .... %> -- _jspService
+Expressions
+<%= session.getId() %>
+<%= session.getMaxInactiveInterval() %>
+ or EL syntax
+
+EL impl objs -- ${...}
+param,pageScope,....applicationScope,cookie,
+initParam,pageContext
+eg : all_tuts -- attribute name--tuts  shared across multiple clnts.
+${applicationScope.all_tuts.jsp}
+WC --- getServletContext().getAttribute("all_tuts").get("jsp")
+--List<Tutorial> --toString --send to clnt
+
+${pageContext.session.id}
+WC -- pageContext.getSession().getId()
+${pageContext.request.contextPath}
+WC --pageContext.getRequest().getContextPath()
+${param.email}
+WC --request.getParamter("email") ---sent to clnt
+
+${sessionScope.abc.name}
+---session.getAttribute("abc").getName()
+
+Declarations
+<%!
+  1. declare private data n methods
+  2. can override jspInit, jspDestroy
+%>
+
+
+JSP Directives
+command for WC -- applied @ translation time
+page,include,taglib
+page --
+<%@ page import="java.util.HashMap,java.util.Date" %>
+session -- true
+one.jsp
+<%@ page errorPage="err_handler.jsp" %>
+
+In err_handler.jsp :
+<%@ page isErrorPage="true"%>
+${pageContext.exception.message}
+${pageContext.errorData.requestURI}
+${pageContext.errorData.throwable.cause}
+In logout.jsp
+${pageContext.session.invalidate()}
+
+
+
+
+
+
+
+JSP Actions
+Request Dispatcher Related(server pull)
+JSP Using Java Beans
+Why Java Bean ?
+What is it ?
+Layers n implementation in a case study
+Objective : Create a CustomerBean for customer login/registration
+Bean 
+1. public n pkged class
+2. Properties --email,password,dao,results
+3. Constr --dao inst
+4. s/g 
+5. B.L method --for customer validation
+
+
+
+JSP standard actions to manage java bean
+1. <jsp:useBean id="bean id" class="F.Q bean class name" scope="page|request|session|application"/>
+def scope=page (i.e by default , bean instance will be added under page scope.)
+
+eg : <jsp:useBean id="voter" class="beans.VoterBean" scope="session"/>
+
+refer to diag for internals
+
+2. <jsp:setProperty name="bean id" property="*"/>
+eg :<jsp:setProperty name="voter" property="*"/>
+WC invokes ---all MATCHING setters
+request parameter names MUST MATCH with JB property setters.
+
+URL ---http://host:port/day5/validate.jsp?em=abc&pass=1234 --0 setters will be called , since no matching found.
+
+3. <jsp:getProperty name="bean id" property="propName"/>
+eg : <jsp:getProperty name="voter" property="details"/>
+WC invokes ---session.getAttribute("voter").getDetails() -- to string --sent to clnt.
+
+OR EL syntax
+${sessionScope.voter.details.name}
+WC invokes ---session.getAttribute("voter").getDetails().getName() ----sent to clnt.
+
+4. How to invoke B.L method of a JB ?
+Either scriptlets (AVOID) or EL syntax(w/o java code)
+${sessionScope.voter.validateCustomer()}
+
+<jsp:forward page="${sessionScope.cust.validateCustomer()}.jsp"/>
+WC invokes --- RD rd=request.getRD(session.
+getAttribute("cust").validateCustomer().concat(".jsp"));
+rd.forward(request,response);
+
+4. How to invoke B.L method of JB , w/o java code from JSP? ---EL syntax
+
+
+

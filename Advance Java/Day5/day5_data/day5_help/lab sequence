@@ -1,0 +1,15 @@
+Lab sequence
+
+1. Import day5.1 
+To revise include directive & RD's forward n include actions
+
+2. Import day5.2 
+To revise JSP--JB--DAO (Utils) --POJO --DB layers
+
+3. Solve assignment (same voting case study)
+3.1 Copy DAO,POJO,Utils packages.
+3.2 Create VoterBean class 
+Properties -- email, password, Voter POJO details
+Constr -- instantiate dao.
+s/g 
+B.L methods --for voter validation  
